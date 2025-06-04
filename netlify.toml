@@ -2,9 +2,17 @@
   command = "npm run build"
   publish = "build"
 
+# Only apply CORS headers to API routes (if needed)
 [[headers]]
-  for = "/*"
+  for = "/api/*"
   [headers.values]
     Access-Control-Allow-Origin = "*"
-    # Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
-    # Access-Control-Allow-Headers = "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
+    Access-Control-Allow-Headers = "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+
+# For static assets like .glb, just allow cross-origin safely
+[[headers]]
+  for = "/*.glb"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Content-Type = "model/gltf-binary"
